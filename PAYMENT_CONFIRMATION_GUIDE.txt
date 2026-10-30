@@ -1,0 +1,7 @@
+Stripe checkout is separate from intake submission. A submitted intake email is NOT proof of payment.
+
+Quick manual verification: Stripe Dashboard > Payments > search customer email > verify status Succeeded, amount and package, and payment timestamp.
+
+For automatic verification: create a Stripe webhook endpoint on Vercel that verifies the Stripe-Signature using STRIPE_WEBHOOK_SECRET, processes checkout.session.completed (and async_payment_succeeded where relevant), checks payment_status == paid, and matches the Stripe session to the intake submission via an intake ID passed as client_reference_id or metadata. Persist payment status in a database and send a separate payment-confirmed notification. Handle duplicate webhook deliveries idempotently. Never trust success redirect alone.
+
+Keep STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET in Vercel server-side secrets, not browser JS.

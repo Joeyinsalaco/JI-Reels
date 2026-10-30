@@ -1,0 +1,25 @@
+JI REELS — AUTOMATIC PAYMENT CONFIRMATION
+
+This version creates a unique Stripe Checkout Session for each questionnaire. The intake ID appears in both the questionnaire email and payment-confirmation email. A verified Stripe webhook sends a separate payment-confirmed notification to j.ireels@yahoo.com.
+
+1. In Stripe Dashboard > Product catalogue, create or find 3 one-time prices for Essential ($99), Premium ($189), Elite ($299). CONFIRM THE CORRECT CURRENCY (CAD or USD) before creating them. Copy each price ID beginning with price_. These must match your intended amounts and currency.
+2. Vercel > Project > Settings > Environment Variables (Production):
+   STRIPE_SECRET_KEY = sk_live_... (secret)
+   STRIPE_PRICE_ESSENTIAL = price_1SjCSkPFml3LPMtOVkNW09sR
+   STRIPE_PRICE_PREMIUM = price_1SjBmzPFml3LPMtO8kg4s5sF
+   STRIPE_PRICE_ELITE = price_1TsQEGPFml3LPMtOiwgNo4W6
+   RESEND_API_KEY = existing secret
+   RESEND_FROM_EMAIL = JI Reels <intake@jireels.ca>
+3. Deploy ZIP files via your GitHub repo/Vercel. Ensure npm install runs (package.json now includes stripe).
+4. Stripe Dashboard > Developers > Webhooks > Add endpoint:
+   https://jireels.ca/api/stripe-webhook
+   Listen to checkout.session.completed and checkout.session.async_payment_succeeded.
+   Copy the endpoint signing secret whsec_... to Vercel STRIPE_WEBHOOK_SECRET.
+5. Redeploy after adding environment variables. Test with Stripe test-mode keys, test prices and a test-mode webhook before switching to live keys. Test completing a payment, abandoned checkout, duplicate webhook and notification delivery.
+6. Stripe Dashboard > Payments is your source of truth. Never treat the success page or questionnaire email as proof of payment.
+
+SECURITY: Never paste secret keys into client HTML or GitHub. The webhook verifies Stripe-Signature using the raw request body. Resend Idempotency-Key reduces duplicate payment emails on Stripe webhook retries, but this is not a persistent payment database. For an auditable order dashboard, add a database and durable event processing.
+
+NOTE: Existing Stripe Payment Links are replaced by per-customer Checkout Sessions for reliable intake matching. Existing payment links remain valid externally but do not participate in this automatic matching flow.
+
+UPDATE 2026-10-30: Three price IDs have been embedded as defaults in the checkout API; environment variables can override them. Added missing payment-success.html. Live activation STILL REQUIRES server-side STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET, plus deployment and Stripe webhook registration. No live payment test has been performed.

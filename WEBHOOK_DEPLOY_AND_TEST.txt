@@ -1,0 +1,12 @@
+JI REELS — DEPLOYMENT AND STRIPE WEBHOOK TEST
+
+1. Upload ALL contents of this ZIP to the root of the GitHub repository connected to your Vercel project, including api/stripe-webhook.js, api/create-checkout-session.js, package.json and vercel.json. Merely redeploying an old Git commit will NOT add missing files.
+2. Verify the Vercel project Root Directory is the repository root. Redeploy Production after pushing the files.
+3. Vercel environment variables (Production): STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, RESEND_API_KEY, RESEND_FROM_EMAIL. Do not put secrets in source files.
+4. Visit https://jireels.ca/api/stripe-webhook in a browser. Expected response: HTTP 405 (method not allowed). HTTP 404 means the function is still missing from the live deployment or incorrectly routed.
+5. In Stripe Workbench webhook destination, verify checkout.session.completed is selected (and optionally checkout.session.async_payment_succeeded). Use Stripe test mode with matching TEST secret key and TEST webhook signing secret to make a test checkout; don't mix live and test credentials.
+6. Inspect Stripe event deliveries and Vercel function logs. A successful signed POST should return 200. Then confirm the Resend payment notification arrives. Stripe checkout success alone is not proof of payment.
+7. The existing implementation emails payment confirmation to j.ireels@yahoo.com and matches it to the questionnaire via intake ID. It does not persist paid status in a database; add a database if you need an automated paid/unpaid dashboard.
+8. For Safari favicon refresh, clear site data for jireels.ca or use a private window after deploying. The favicon is a black-and-white film slate.
+
+IMPORTANT: Stripe webhooks can retry; this handler uses an idempotency key for the payment email. Confirm actual event deliveries before using live customer payments.
