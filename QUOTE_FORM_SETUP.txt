@@ -1,0 +1,9 @@
+QUOTE FORM SETUP
+
+The Request a Quote buttons on Home and Compare now open a slide-in form sheet. The form is also available directly at /request-quote.html.
+
+Submission currently uses FormSubmit to email j.ireels@yahoo.com. On the FIRST submission, FormSubmit may send a confirmation/activation email to that Yahoo inbox. You must approve it for future requests to arrive. Check spam too.
+
+After deploying, submit a test quote using a different email address and verify receipt in Yahoo, then verify the thank-you redirect. Do not assume live delivery until tested.
+
+This is a static HTML site: no npm or Next.js needed.

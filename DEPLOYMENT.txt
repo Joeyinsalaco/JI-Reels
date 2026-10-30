@@ -1,0 +1,21 @@
+JI REELS — DEPLOYMENT READY
+
+Vercel:
+- Framework preset: Other
+- Build command: leave blank
+- Output directory: leave blank
+- Root directory: repository root
+- Add your custom domain: jireels.ca
+
+GitHub Pages:
+- Upload all files directly to the repository root.
+- Keep .nojekyll, images/, index.html, styles.css, and script.js at the top level.
+
+Contact form:
+- The form uses FormSubmit and sends to j.ireels@yahoo.com.
+- The first submission triggers a one-time activation email.
+- Open that email and approve the form before it can deliver messages.
+
+SEO:
+- Change https://jireels.ca in the HTML, sitemap.xml, robots.txt, and form redirect if your final domain is different.
+- Submit sitemap.xml in Google Search Console after launch.

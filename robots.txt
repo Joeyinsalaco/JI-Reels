@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jireels.ca/sitemap.xml

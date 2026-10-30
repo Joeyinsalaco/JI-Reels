@@ -1,0 +1,13 @@
+JI REELS QUOTE FORM — VERCEL + RESEND
+
+1. Deploy this entire ZIP to your Vercel project (including api/quote.js). It must be deployed as a Vercel project, not GitHub Pages or file://.
+2. In Resend, verify your sending domain (for example jireels.ca) and configure the required DNS records.
+3. In Vercel > Project > Settings > Environment Variables add:
+   RESEND_API_KEY = your private Resend API key
+   RESEND_FROM_EMAIL = JI Reels <quotes@jireels.ca> (use an address on your verified domain)
+4. Redeploy after saving environment variables.
+5. Open the deployed site, submit a test quote, and confirm delivery to j.ireels@yahoo.com.
+
+No API key is included in this ZIP. Do not put the API key in frontend HTML or GitHub.
+The site uses static HTML and a Vercel serverless function, NOT Next.js.
+If the endpoint is not configured, users see a clear error and the form stays open.
