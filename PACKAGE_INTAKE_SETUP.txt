@@ -1,0 +1,9 @@
+PACKAGE QUESTIONNAIRE
+
+Essential, Premium and Elite buttons on Home and Compare now open a 4-step questionnaire. The form POSTs to /api/package-intake and emails j.ireels@yahoo.com via Resend. Only after a successful email does it redirect to the matching Stripe checkout.
+
+Required Vercel Production environment variables:
+RESEND_API_KEY = your private Resend API key
+RESEND_FROM_EMAIL = JI Reels <quotes@jireels.ca>
+
+Redeploy after setting variables. Test all three package paths and verify email delivery. This form does NOT confirm payment; verify Stripe separately.
