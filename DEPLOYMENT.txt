@@ -1,21 +1,32 @@
-JI REELS — DEPLOYMENT READY
+JI Reels | Vercel deployment
 
-Vercel:
-- Framework preset: Other
-- Build command: leave blank
-- Output directory: leave blank
-- Root directory: repository root
-- Add your custom domain: jireels.ca
+Extract this ZIP and use the extracted files as the project root.
+Use the Other framework preset and leave Build Command and Output Directory
+at their defaults. Use a supported Node.js runtime for the API function.
+GitHub can store the source, but GitHub Pages cannot run the intake API.
 
-GitHub Pages:
-- Upload all files directly to the repository root.
-- Keep .nojekyll, images/, index.html, styles.css, and script.js at the top level.
+Set these server-side variables in Vercel Project Settings > Environment Variables:
+  RESEND_API_KEY       Resend sending key for the verified sender domain.
+  RESEND_FROM_EMAIL    Sender on that domain, e.g. JI Reels <quotes@jireels.ca>.
 
-Contact form:
-- The form uses FormSubmit and sends to j.ireels@yahoo.com.
-- The first submission triggers a one-time activation email.
-- Open that email and approve the form before it can deliver messages.
+Set both for Production and for any Preview deployment you intend to test.
+Verify the sender domain in Resend and redeploy after setting the variables.
+Keep the key in Vercel. The existing intake recipient is j.ireels@yahoo.com.
+Enable Web Analytics in the Vercel project. The site includes its tracking script.
+The existing Custom quote form has its own FormSubmit activation.
 
-SEO:
-- Change https://jireels.ca in the HTML, sitemap.xml, robots.txt, and form redirect if your final domain is different.
-- Submit sitemap.xml in Google Search Console after launch.
+Smoke test
+1. In Preview, open Essential, Premium, and Elite from Home and Compare.
+2. Complete each survey with clearly marked test answers. Confirm that the
+   inbox receives the right package and answers, and that Reply targets the
+   test email address.
+3. Confirm Stripe opens only after the submission succeeds and displays the
+   intended package, currency and price. Stop before paying.
+4. With a Preview environment missing its sender settings, submit a test brief.
+   Verify that an error appears, answers are retained, and Stripe stays closed.
+5. Repeat the Premium smoke test in Production after deployment.
+
+The intake record is the email sent through Resend. A successful submission
+means Resend accepted the email, so check the inbox and Resend delivery status
+during the smoke test. Confirm payment separately in Stripe. The intake uses
+hosted payment links and requires no Stripe secret key or webhook to redirect.
